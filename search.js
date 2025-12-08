@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for search query in URL
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('search');
-    
+    console.log(searchQuery);
     if (searchQuery) {
+        console.log("a");
         document.getElementById('searchInput').value = searchQuery;
         const OutsideSearch = ben(searchQuery, "relevance");
         console.log(OutsideSearch);
