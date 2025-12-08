@@ -39,14 +39,14 @@ async function loadMovies() {
 // Perform search
 async function performSearch() {
     query = document.getElementById('searchInput').value;
+    const currentResults = await searchfunc(query,genres,sortBy,allMovies);
     currentPage = 1;
-    const currentResults = await searchfunc(query,genres,sortBy,allMovies,currentPage * resultsPerPage);
     displayResults(currentResults);
     updateResultsInfo(query, currentResults);
 }
 
 async function performSort() {
-    const currentResults = await searchfunc(query,genres,sortBy,allMovies,currentPage * resultsPerPage);
+    const currentResults = await searchfunc(query,genres,sortBy,allMovies);
     displayResults(currentResults);
     updateResultsInfo(query, currentResults);
 }
@@ -67,9 +67,12 @@ function displayResults(currentResults) {
         return;
     }
     
+    const startIndex = 0;
+    const endIndex = currentPage * resultsPerPage;
+    const resultsToShow = currentResults.slice(startIndex, endIndex);
+    
     // Clear previous results
     resultsGrid.innerHTML = '';
-    const resultsToShow = currentResults;
     
     // Display results
     resultsToShow.forEach(movie => {
