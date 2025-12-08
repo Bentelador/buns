@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (searchQuery) {
         document.getElementById('searchInput').value = searchQuery;
-        const OutsideSearch = ben(searchQuery, "relevance")
+        const OutsideSearch = ben(searchQuery, "relevance");
+        console.log(OutsideSearch)
         displayResults(OutsideSearch);
         updateResultsInfo(searchQuery);
     }
