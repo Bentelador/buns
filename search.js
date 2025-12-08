@@ -10,7 +10,7 @@ let genres = [];
 let currentPage = 1;
 const resultsPerPage = 12;
 let selectedMovie = null;
-const query = "";
+let query = "";
 
 // Load movies when page loads
 document.addEventListener('DOMContentLoaded', function() {
