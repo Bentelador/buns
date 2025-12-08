@@ -50,7 +50,6 @@ async function performSearch(searchTerm = "") {
 
 async function performSort() {
     const currentResults = await searchfunc(query,genres,sortBy,allMovies);
-    console.log(currentResults)
     displayResults(currentResults);
     updateResultsInfo(query, currentResults);
 }
@@ -184,7 +183,6 @@ function clearMovieDetails() {
 
 // Sort results
 function sortResults(rad,value) {
-    console.log(value , rad , rad.value);
     if (rad.checked && value == "sort") {
         sortBy = rad.value;
     }
@@ -307,11 +305,24 @@ function addToWatchlist(movieId, movieTitle) {
 }
 genreList.forEach(checkbox => {
     checkbox.addEventListener("change", (event) => {
-        console.log(event.target.value);
         sortResults(event.target,"genre");
     });
 })
 
+sortList.forEach(checkbox => {
+    checkbox.addEventListener("change", (event) => {
+        sortResults(event.target,"sort");
+    });
+})
+
+loadbtn.addEventListener("click", function() {
+    performSearch();
+})
+
+
+searchbtn.addEventListener("click", function() {
+    loadMoreResults();
+})
 // Handle search input Enter key
 document.getElementById('searchInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
