@@ -1,4 +1,9 @@
 import ben, { searchfunc } from "./searchmodule.js"
+const genreList = document.querySelectorAll(".SortFilter2 input[type='checkbox']");
+const sortList = document.querySelectorAll(".SortFilter input[type='radio']");
+const searchbtn = document.getElementById("search-btn");
+const loadbtn = document.getElementById("load-more-btn");
+
 let allMovies = [];
 let sortBy = "";
 let genres = [];
@@ -177,11 +182,16 @@ function clearMovieDetails() {
 
 // Sort results
 function sortResults(rad,value) {
+    console.log(value , rad , rad.value);
     if (rad.checked && value == "sort") {
         sortBy = rad.value;
     }
-    if (rad.checked && value == "genre") {
+    if (value == "genre") {
+        if (rad.checked) {
         genres.push(rad.value);
+        } else {
+            genres = genres.filter(item => item !== rad.value);
+        }
     }
     
     currentPage = 1;
@@ -294,9 +304,15 @@ function addToWatchlist(movieId, movieTitle) {
     }
 }
 
+genreList.addEventListener("change", (event) => {
+    console.log(event.target.value);
+    function sortResults(event.target,"genre");
+}
+
 // Handle search input Enter key
 document.getElementById('searchInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         performSearch();
     }
 });
+
