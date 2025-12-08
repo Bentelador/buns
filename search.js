@@ -67,11 +67,6 @@ function displayResults(currentResults) {
         return;
     }
     
-    // Calculate which results to show (pagination)
-    const startIndex = 0;
-    const endIndex = currentPage * resultsPerPage;
-    const resultsToShow = currentResults.slice(startIndex, endIndex);
-    
     // Clear previous results
     resultsGrid.innerHTML = '';
     
