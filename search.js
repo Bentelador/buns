@@ -186,7 +186,6 @@ function sortResults(rad,value) {
     
     currentPage = 1;
     performSort();
-    }
 }
 
 function loadMoreResults() {
