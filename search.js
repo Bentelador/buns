@@ -70,6 +70,8 @@ function displayResults(currentResults) {
     const startIndex = 0;
     const endIndex = currentPage * resultsPerPage;
     const resultsToShow = currentResults.slice(startIndex, endIndex);
+    const reslength = currentResults.length;
+    currentResults = null;
     
     // Clear previous results
     resultsGrid.innerHTML = '';
@@ -81,7 +83,7 @@ function displayResults(currentResults) {
     });
     
     // Show/hide load more button
-    if (endIndex < currentResults.length) {
+    if (endIndex < reslength) {
         loadMoreBtn.style.display = 'block';
     } else {
         loadMoreBtn.style.display = 'none';
@@ -202,18 +204,21 @@ function loadMoreResults() {
 function updateResultsInfo(query, currentResults) {
     const resultsCount = document.getElementById('resultsCount');
     let text = '';
+    let reslength = currentResults.length;
+    currentResults = null;
     
-    if (currentResults.length === 0) {
+    
+    if (reslength === 0) {
         text = `No results found for "${query}"`;
     } else if (query) {
-        text = `${currentResults.length} results for "${query}"`;
+        text = `${reslength} results for "${query}"`;
         if (genres && genres !== 'all') {
             text += ` in ${genres}`;
         }
     } else if (genres && genres !== 'all') {
-        text = `${currentResults.length} ${genres} movies`;
+        text = `${reslength} ${genres} movies`;
     } else {
-        text = `${currentResults.length} movies`;
+        text = `${reslength} movies`;
     }
     
     resultsCount.textContent = text;
