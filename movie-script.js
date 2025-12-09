@@ -25,16 +25,13 @@ async function loadMovies() {
                     </div>
                 </div>                    
             </div>`;
-            console.log(buns);
 
             allMovies = allMovies.filter(obj1 =>
             obj1.genre.some(g1 =>
                 Movies.some(obj2 => obj2.genre.includes(g1))
             )
             );
-            console.log(allMovies)
             allMovies = allMovies.slice(0,5);
-            console.log(allMovies)
             allMovies.forEach(element => {
                 document.getElementById('watch-more-rows').innerHTML = document.getElementById('watch-more-rows').innerHTML + `
                 <div class="netflix-movie-card">
@@ -112,6 +109,7 @@ function applyGenreFilter() {
     alert(`Filtering movies by: ${selectedGenres.join(', ')}`);
     closeAllPanels();
 }
+
 
 
 
