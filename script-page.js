@@ -474,7 +474,27 @@ async function loadMovies() {
     const response = await fetch('https://raw.githubusercontent.com/Bentelador/movie-bai/refs/heads/main/MDB.json');
     let allMovies = await response.json();
     const maxnum = 15;
-    console.log(allMovies);
+    document.getElementById('hero').innerHTML = ``;
+    const Main = document.querySelector('.hero')
+        document.getElementById('hero').innerHTML = `
+                <div class="hero-content">
+                    <h1 class="movie-title">${mainMovs[0].title}</h1>
+                    <p class="movie-description">${mainMovs[0].synopsis}</p>
+                    <div class="movie-meta">
+                        <span class="year">${mainMovs[0].year}</span>
+                        <span class="rating">★ ${mainMovs[0].rating}</span>
+                        <span class="duration">${mainMovs[0].runtime} seconds</span>
+                    </div>
+                    <div class="hero-buttons">
+                        <button class="play-btn" onclick="playMovie('${mainMovs[0].id}')">▶ Play</button>
+                        <button class="info-btn" onclick="showMovieInfo('${mainMovs[0].id}')">ℹ More Info</button>
+                    </div>
+                `;
+    Main.style.backgroundImage = `
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url('${mainMovs[0].image}')
+    `;
+    
     let curmov = allMovies.slice(0,maxnum);
     let seemore = document.getElementById('top-movies-row').innerHTML;
     document.getElementById('top-movies-row').innerHTML = ``;
@@ -636,6 +656,7 @@ async function loadMovies() {
 
 
 loadMovies();
+
 
 
 
