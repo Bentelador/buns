@@ -147,6 +147,22 @@ async function loadMoviesForSearch() {
     }
 }
 
+function matching(result, ss) {
+    const MA = result.toLowerCase()
+    const ser = ss.toLowerCase()
+    let matches = 0
+   if (MA === ser) {
+        matches += 3;
+    }
+    else if (MA.startsWith(ser)) {
+        matches += 2;
+    }
+    else if (MA.includes(ser)) {
+        matches += 1;
+    }
+
+    return matches;
+}
 // Show search suggestions
 function showSearchSuggestions(query) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
@@ -156,9 +172,13 @@ function showSearchSuggestions(query) {
         return;
     }
     
-    const filteredMovies = allMovies.filter(movie =>
+    const result = allMovies.filter(movie =>
         movie.title.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 5); // Show max 5 suggestions
+    );
+    
+    const filteredMovies = result.sort((a,b) => {
+      return matching(b.title,ss) - matching(a.title,ss);
+    }).slice(0,5);
     
     if (filteredMovies.length === 0) {
         suggestionsContainer.innerHTML = `
@@ -450,8 +470,6 @@ function scrollto(elementtarget){
 }
 
 async function loadMovies() {
-    const response = await fetch('https://raw.githubusercontent.com/Bentelador/movie-bai/refs/heads/main/MDB.json');
-    let allMovies = await response.json();
     const maxnum = 15;
     let curmov = allMovies.slice(0,maxnum);
     let seemore = document.getElementById('top-movies-row').innerHTML;
@@ -611,5 +629,6 @@ async function loadMovies() {
     document.getElementById('newest-movies-row').innerHTML += seemore;
 
 }
+
 
 loadMovies()
