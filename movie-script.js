@@ -9,7 +9,7 @@ async function loadMovies() {
         const buns = document.getElementById('main-content').innerHTML;
         document.getElementById('main-content').innerHTML = ``;
         document.getElementById('main-content').innerHTML = `
-        
+        <iframe  class="main-watch" id="main-watch" src="https://vidsrc.to/embed/movie/${ids}" allow="fullscreen;"></iframe>
             <div class="thumb-desc-container">
                 <div class="thumbnail-container">
                     <img class="thumbnail" src="${Movies[0].image}" alt="">
@@ -117,8 +117,9 @@ function applyGenreFilter() {
     closeAllPanels();
 }
 
-
-
+document.getElementById('homebtn').addEventListener('click',function(){
+        window.location.href = "main-movie-page.html"
+}
 document.getElementById('mainSearchInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         let val = 'Search.html?search=' + document.getElementById('mainSearchInput').value;
@@ -128,6 +129,7 @@ document.getElementById('mainSearchInput').addEventListener('keypress', function
             window.location.href = val;
     }
 });
+
 
 
 
