@@ -119,7 +119,7 @@ function applyGenreFilter() {
 
 document.getElementById('homebtn').addEventListener('click',function(){
         window.location.href = "main-movie-page.html"
-}
+})
 document.getElementById('mainSearchInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         let val = 'Search.html?search=' + document.getElementById('mainSearchInput').value;
@@ -129,6 +129,7 @@ document.getElementById('mainSearchInput').addEventListener('keypress', function
             window.location.href = val;
     }
 });
+
 
 
 
