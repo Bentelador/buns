@@ -1,57 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const ids = params.get("id");
 
-function toggleFilterPanel() {
-    const filterPanel = document.getElementById('filterPanel');
-    const overlay = document.querySelector('.overlay') || createOverlay();
-    
-    filterPanel.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-
-function toggleProfilePanel() {
-    const profilePanel = document.getElementById('profilePanel');
-    const overlay = document.querySelector('.overlay') || createOverlay();
-    
-    profilePanel.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-
-function createOverlay() {
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    overlay.onclick = closeAllPanels;
-    document.body.appendChild(overlay);
-    return overlay;
-}
-
-function closeAllPanels() {
-    document.getElementById('filterPanel').classList.remove('active');
-    document.getElementById('profilePanel').classList.remove('active');
-    document.querySelector('.overlay').classList.remove('active');
-    hideSearchSuggestions();
-}
-
-
-// Filter functionality
-function applyGenreFilter() {
-    const selectedGenres = [];
-    const checkboxes = document.querySelectorAll('.genre-checkbox input:checked');
-    
-    checkboxes.forEach(checkbox => {
-        selectedGenres.push(checkbox.value);
-    });
-    
-    if (selectedGenres.length === 0) {
-        alert('Please select at least one genre');
-        return;
-    }
-    
-    console.log('Filtering by genres:', selectedGenres);
-    alert(`Filtering movies by: ${selectedGenres.join(', ')}`);
-    closeAllPanels();
-}
-
 async function loadMovies() {
         const response = await fetch('https://raw.githubusercontent.com/Bentelador/movie-bai/refs/heads/main/MDB.json');
         let allMovies = await response.json();
@@ -59,7 +8,7 @@ async function loadMovies() {
         const buns = document.getElementById('main-content').innerHTML;
         document.getElementById('main-content').innerHTML = ``;
         document.getElementById('main-content').innerHTML = `
-        
+        <iframe  class="main-watch" id="main-watch" src="https://vidsrc.to/embed/movie/${ids}" allow="fullscreen;"></iframe>
             <div class="thumb-desc-container">
                 <div class="thumbnail-container">
                     <img class="thumbnail" src="${Movies[0].image}" alt="">
@@ -111,8 +60,58 @@ async function loadMovies() {
     allMovies = null;
     Movies = null;
 }
+loadMovies();
+
+function toggleFilterPanel() {
+    const filterPanel = document.getElementById('filterPanel');
+    const overlay = document.querySelector('.overlay') || createOverlay();
+    
+    filterPanel.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+function toggleProfilePanel() {
+    const profilePanel = document.getElementById('profilePanel');
+    const overlay = document.querySelector('.overlay') || createOverlay();
+    
+    profilePanel.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    overlay.onclick = closeAllPanels;
+    document.body.appendChild(overlay);
+    return overlay;
+}
+
+function closeAllPanels() {
+    document.getElementById('filterPanel').classList.remove('active');
+    document.getElementById('profilePanel').classList.remove('active');
+    document.querySelector('.overlay').classList.remove('active');
+    hideSearchSuggestions();
+}
 
 
-loadMovies()
+// Filter functionality
+function applyGenreFilter() {
+    const selectedGenres = [];
+    const checkboxes = document.querySelectorAll('.genre-checkbox input:checked');
+    
+    checkboxes.forEach(checkbox => {
+        selectedGenres.push(checkbox.value);
+    });
+    
+    if (selectedGenres.length === 0) {
+        alert('Please select at least one genre');
+        return;
+    }
+    
+    console.log('Filtering by genres:', selectedGenres);
+    alert(`Filtering movies by: ${selectedGenres.join(', ')}`);
+    closeAllPanels();
+}
+
 
 
