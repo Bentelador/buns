@@ -31,7 +31,14 @@ async function loadMovies() {
                 Movies.some(obj2 => obj2.genre.includes(g1))
             )
             );
-            allMovies = allMovies.slice(0,5);
+        const maxStartIndex = allMovies.length - 5; // make sure we have 5 elements
+
+        // Generate random start index
+        const randomStart = Math.floor(Math.random() * (maxStartIndex + 1));
+        
+        // Slice 5 elements starting from the random index
+        allMovies = allMovies.slice(randomStart, randomStart + 5);
+        console.log(allMovies)
             allMovies.forEach(element => {
                 document.getElementById('watch-more-rows').innerHTML = document.getElementById('watch-more-rows').innerHTML + `
                 <div class="netflix-movie-card">
@@ -109,6 +116,7 @@ function applyGenreFilter() {
     alert(`Filtering movies by: ${selectedGenres.join(', ')}`);
     closeAllPanels();
 }
+
 
 
 
