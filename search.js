@@ -31,7 +31,7 @@ async function loadMovies() {
     const searchQuery = urlParams.get('search');
     const searchGenre = urlParams.getAll('genre');
 
-    if (genre) {
+    if (searchGenre) {
         searchGenre.forEach(element => {
             console.log(element)
             genres.push(element)
