@@ -54,7 +54,7 @@ function applyGenreFilter() {
 
 async function loadMovies() {
         const response = await fetch('https://raw.githubusercontent.com/Bentelador/movie-bai/refs/heads/main/MDB.json');
-        let AllMovies = await response.json();
+        let allMovies = await response.json();
         let Movies = allMovies.filter(n => n.id.includes(ids));
         const buns = document.getElementById('main-content').innerHTML;
         document.getElementById('main-content').innerHTML = ``;
@@ -108,10 +108,11 @@ async function loadMovies() {
                 </div>
             </div>`;
             });
-    AllMovies = null;
+    allMovies = null;
     Movies = null;
 }
 
 
 loadMovies()
+
 
