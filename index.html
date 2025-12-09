@@ -1,14 +1,13 @@
 <html>
     <body>
         <input type="text" id="sear" value="moviecode"></input>
-
-        <button onclick="window.location.href='Search.html?search='+call()"></button>
-
         <script>
             function call(){
-                return document.getElementById("sear").value
-            }
+                window.location.href='main-movie-page.html';
+            };
+            call();
         </script>
     </body>
 
 </html>
+
