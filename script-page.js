@@ -491,6 +491,7 @@ async function loadMovies() {
                     </div>
                 `;
     Main.style.backgroundImage = `
+    linear-gradient(to bottom, rgba(0,0,0,0) 85%, rgba(0,0,0,0.9) 100%),
     linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
     url('${mainMovs[0].image}')
     `;
@@ -656,6 +657,7 @@ async function loadMovies() {
 
 
 loadMovies();
+
 
 
 
