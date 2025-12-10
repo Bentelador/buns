@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load user data
     loadUserData();
-    
-    // Initialize event listeners
-    initializeEventListeners();
+
 });
 
 
@@ -264,6 +262,7 @@ function showToast(message) {
     }, 3000);
 
 }
+
 
 
 
