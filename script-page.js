@@ -555,7 +555,7 @@ async function loadMovies() {
     });
     document.getElementById('action-movies-row').innerHTML += seemore;
 
-    curmov = allMovies.filter(n => n.genre.includes('Drama')).slice(0,maxnum);
+    curmov = allMovies.filter(n => n.genre.includes('Drama'));
     curmov = curmov.slice(randomStart, randomStart + maxnum);
     seemore = document.getElementById('Drama-movies-row').innerHTML;
     document.getElementById('Drama-movies-row').innerHTML = ``;
@@ -665,6 +665,7 @@ async function loadMovies() {
 
 
 loadMovies();
+
 
 
 
