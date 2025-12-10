@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addmovie(buns) {
     console.log(buns)
-    document.getElementbyId('act-list').innerHTML = `<div class="activity-item">
+    document.getElementById('act-list').innerHTML = `<div class="activity-item">
                         <img class="activity-poster" src="${buns[0].image}">🎬
                         <div class="activity-info">
                             <div class="activity-title">${buns[0].title}</div>
@@ -48,7 +48,7 @@ function loadUserData() {
     const userFullName = localStorage.getItem('userFullName') || 'User Name';
     
     // Update profile page
-    const userName = document.getElementById('userFullName');
+    const userName = document.getElementById'userFullName');
     const userEmailElement = document.getElementById('userEmail');
     
     if (userName) userName.textContent = userFullName;
@@ -428,4 +428,5 @@ function showToast(message) {
     }, 3000);
 
 }
+
 
