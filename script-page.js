@@ -523,13 +523,12 @@ async function loadMovies() {
     document.getElementById('top-movies-row').innerHTML += seemore;
 
 
-    const maxStartIndex = allMovies.length - maxnum; // make sure we have 5 elements
-
-        // Generate random start index
+    const maxStartIndex = allMovies.length - maxnum;
         const randomStart = Math.floor(Math.random() * (maxStartIndex + 1));
-        
+
     curmov = allMovies.filter(n => n.genre.includes('Action'));
     curmov = curmov.slice(randomStart, randomStart + maxnum);
+    console.log(curmov)
     seemore = document.getElementById('action-movies-row').innerHTML;
     document.getElementById('action-movies-row').innerHTML = ``;
     curmov.forEach(element => {
@@ -665,6 +664,7 @@ async function loadMovies() {
 
 
 loadMovies();
+
 
 
 
