@@ -268,38 +268,6 @@ function formatNumber(num) {
     return num.toString();
 }
 
-function getSampleMovies() {
-    return [
-        {
-            "id": "tt1312221",
-            "title": "Frankenstein",
-            "year": 2025,
-            "synopsis": "Dr. Victor Frankenstein, a brilliant but egotistical scientist, brings a creature to life in a monstrous experiment...",
-            "genre": ["Drama", "Fantasy", "Horror"],
-            "runtime": 8940,
-            "rating": 7.5,
-            "votes": 155095,
-            "image": "https://m.media-amazon.com/images/M/MV5BYzYzNDYxMTQtMTU4OS00MTdlLThhMTQtZjI4NGJmMTZmNmRiXkEyXkFqcGc@._V1_.jpg"
-        },
-        {
-            "id": "tt19847976",
-            "title": "Wicked: For Good",
-            "year": 2025,
-            "synopsis": "Elphaba, the future Wicked Witch of the West and her relationship with Glinda, the Good Witch of the North...",
-            "genre": ["Family", "Fantasy", "Musical"],
-            "runtime": 8220,
-            "rating": 7.1,
-            "votes": 22097,
-            "image": "https://m.media-amazon.com/images/M/MV5BNzRhNTE4ZTYtNTM0Mi00MzU3LTk4MTktYWE3MzQ2NTU0MDNlXkEyXkFqcGc@._V1_.jpg"
-        }
-    ];
-}
-
-// Play movie function
-function playMovie(title) {
-    alert(`Now playing: ${title}`);
-}
-
 // Add to watchlist function
 function addToWatchlist(movieId, movieTitle) {
     // Get existing watchlist
