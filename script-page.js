@@ -523,11 +523,9 @@ async function loadMovies() {
     document.getElementById('top-movies-row').innerHTML += seemore;
 
 
-    const maxStartIndex = allMovies.length - maxnum;
-        const randomStart = Math.floor(Math.random() * (maxStartIndex + 1));
-
-    curmov = allMovies.filter(n => n.genre.includes('Action'));
-    curmov = curmov.slice(randomStart, randomStart + maxnum);
+    const num = Math.floor(Math.random() * 50) + 1;
+    const numval = num * 43
+    curmov = allMovies.filter(n => n.genre.includes('Action')).slice(numval, numval+maxnum);
     console.log(curmov)
     seemore = document.getElementById('action-movies-row').innerHTML;
     document.getElementById('action-movies-row').innerHTML = ``;
@@ -553,9 +551,8 @@ async function loadMovies() {
         </div>`
     });
     document.getElementById('action-movies-row').innerHTML += seemore;
-
-    curmov = allMovies.filter(n => n.genre.includes('Drama'));
-    curmov = curmov.slice(randomStart, randomStart + maxnum);
+    const numval1 = num * 27 
+    curmov = allMovies.filter(n => n.genre.includes('Drama')).slice(numval1, numval1+maxnum);
     seemore = document.getElementById('Drama-movies-row').innerHTML;
     document.getElementById('Drama-movies-row').innerHTML = ``;
     curmov.forEach(element => {
@@ -664,6 +661,7 @@ async function loadMovies() {
 
 
 loadMovies();
+
 
 
 
