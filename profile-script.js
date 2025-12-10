@@ -89,33 +89,6 @@ function updateProfileStats() {
     loadWatchlist()
 }
 
-// ===== PROFILE PANEL FUNCTIONALITY =====
-function toggleProfilePanel() {
-    const profilePanel = document.getElementById('profilePanel');
-    const overlay = document.getElementById('overlay') || createOverlay();
-    
-    profilePanel.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-
-function createOverlay() {
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    overlay.id = 'overlay';
-    overlay.onclick = closeAllPanels;
-    document.body.appendChild(overlay);
-    return overlay;
-}
-
-function closeAllPanels() {
-    const profilePanel = document.getElementById('profilePanel');
-    const overlay = document.getElementById('overlay');
-    
-    if (profilePanel) profilePanel.classList.remove('active');
-    if (overlay) overlay.classList.remove('active');
-    hideSearchSuggestions();
-}
-
 // Logout function
 function logout() {
     localStorage.removeItem('isLoggedIn');
@@ -291,6 +264,7 @@ function showToast(message) {
     }, 3000);
 
 }
+
 
 
 
