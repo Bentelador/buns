@@ -21,6 +21,13 @@ function matching(result, ss) {
 
     return matches;
 }
+async function sorter(sort,result,ss){
+  let bb;
+   bb = result.sort((yearA,yearB) => {
+          return yearB.votes - yearA.votes;
+    });
+  return bb
+}
 
 async function sorta(sort,result,ss) {
   let bb;
@@ -40,9 +47,10 @@ async function sorta(sort,result,ss) {
         })
     }
   if (sort == "rating") {
-        bb = result.sort((A,B) => {
+    const waiter = await sorter(sort,result,ss);
+        bb = waiter.sort((A,B) => {
           return B.rating - A.rating;
-        })
+        });
     }
   if (sort == "title") {
         const alphabeticOnlyRegex = /[^a-zA-Z0-9]/g; 
@@ -77,6 +85,7 @@ async function searchfunc(serch, BS, sort, jsonData){
 
 export default ben
 export { searchfunc }
+
 
 
 
