@@ -91,7 +91,7 @@ function displayWatchlist(filterStatus = 'all') {
     
     watchlistGrid.innerHTML = filteredItems.map(item => `
         <div class="watchlist-item" data-movie-id="${item.id}">
-            <div class="watchlist-poster">${item.image}</div>
+            <img class="watchlist-poster" src="${item.image}">
             <div class="watchlist-info">
                 <div class="watchlist-title">
                     ${item.title}
@@ -262,5 +262,6 @@ function updateAllStats() {
         document.getElementById('inWatchlist').textContent = inWatchlist;
     }
 }
+
 
 
