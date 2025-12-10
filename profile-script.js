@@ -20,16 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
 function addmovie(buns) {
     console.log(buns)
     document.getElementbyId('act-list').innerHTML = `<div class="activity-item">
-                        <div class="activity-poster">🎬</div>
+                        <img class="activity-poster" src="${buns[0].image}">🎬
                         <div class="activity-info">
-                            <div class="activity-title">Movie Title 1</div>
+                            <div class="activity-title">${buns[0].title}</div>
                             <div class="activity-time">Watched 2 hours ago</div>
                         </div>
                     </div>
                     <div class="activity-item">
-                        <div class="activity-poster">🎬</div>
+                        <img class="activity-poster" src="${buns[0].image}">
                         <div class="activity-info">
-                            <div class="activity-title">Movie Title 2</div>
+                            <div class="activity-title">${buns[1].title}</div>
                             <div class="activity-time">Watched 1 day ago</div>
                         </div>
                     </div>`
