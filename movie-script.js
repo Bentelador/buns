@@ -47,10 +47,10 @@ async function loadMovies() {
                     <div class="netflix-movie-actions">
                         <div class="netflix-action-row">
                             <div class="netflix-main-actions">
-                                <button class="netflix-play-btn" onclick="playMovie('Movie 1')">▶</button>
+                                <button class="netflix-play-btn" onclick="playMovie('${element.id}')">▶</button>
 
                             </div>
-                            <button class="netflix-info-btn" onclick="showMovieInfo('Movie 1')">ℹ</button>
+                            <button class="netflix-info-btn" onclick="showMovieInfo('${element.id}')">ℹ</button>
                         </div>
                         <div class="netflix-movie-info">
                             <div class="netflix-movie-match">${element.rating * 10}%</div>
@@ -69,6 +69,7 @@ loadMovies();
 document.getElementById('homebtn').addEventListener('click',function(){
         window.location.href = "main-movie-page.html"
 });
+
 
 
 
