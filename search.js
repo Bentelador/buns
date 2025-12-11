@@ -240,7 +240,7 @@ function createMovieCard(movie) {
     </div>
     `;
 
-    const btn = card.querySelector(`.watchlist-btn${movieId}`
+    const btn = card.querySelector(`.watchlist-btn${movieId}`)
     btn.addEventListener('click', function() {
             const movieId = this.dataset.movieId;
             const movieTitle = this.dataset.movieTitle;
@@ -374,7 +374,7 @@ function addToWatchlist(movieId, movieTitle,btn,isInWatchlist) {
                    ✓ In Watchlist
                 </button>`;
 
-    const btna = card.querySelector(`.watchlist-btn${movieId}`
+    const btna = card.querySelector(`.watchlist-btn${movieId}`)
 
     btna.addEventListener('click', function() {
             const movieId = this.dataset.movieId;
