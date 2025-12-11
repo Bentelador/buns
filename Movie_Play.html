@@ -229,6 +229,44 @@
 <script src="movie-script.js"></script>
 <script src="avatar-manager.js"></script>
 
+    <script>
+    // Check if user is logged in
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'Log in.html';
+    }
+    
+    // Update welcome message with user's actual name
+    document.addEventListener('DOMContentLoaded', function() {
+        const userEmail = localStorage.getItem('userEmail');
+        const userFullName = localStorage.getItem('userFullName') || 'User';
+        
+        console.log('Loading user data:', { userEmail, userFullName });
+        
+        if (userEmail) {
+            // Update profile panel
+            const panelUserName = document.getElementById('panelUserName');
+            const panelUserEmail = document.getElementById('panelUserEmail');
+            
+            if (panelUserName) {
+                panelUserName.textContent = userFullName;
+                console.log('Updated panel name to:', userFullName);
+            }
+            if (panelUserEmail) {
+                panelUserEmail.textContent = userEmail;
+                console.log('Updated panel email to:', userEmail);
+            }
+            
+            // Also update any other .user-name/.user-email elements
+            document.querySelectorAll('.user-name:not(#panelUserName)').forEach(el => {
+                el.textContent = userFullName;
+            });
+            document.querySelectorAll('.user-email:not(#panelUserEmail)').forEach(el => {
+                el.textContent = userEmail;
+            });
+        }
+    });
+</script>
+
 </body>
 
 </html>
