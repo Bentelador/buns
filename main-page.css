@@ -51,6 +51,8 @@ body {
 
 .flair-particle {
     position: absolute;
+    top: 0;
+    transform: translateY(100vh);
     border-radius: 50%;
     background: radial-gradient(circle, rgba(229, 9, 20, 0.3), transparent);
     animation: particleFloat 15s infinite linear;
@@ -1051,6 +1053,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     border-left: 4px solid #e50914;
 }
+
 
 
 
