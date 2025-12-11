@@ -40,25 +40,16 @@ async function sorta(sort,result,ss) {
         })
     }
   if (sort == "rating") {
-        const MIN_VOTES_TOP = 5000; // threshold for "high-vote" movies at the top
+        const MIN_VOTES_TOP = 100000; // threshold for "high-vote" movies at the top
 
         bb = result.sort((a, b) => {
-            const ratingDiff = Math.abs(a.rating - b.rating);
-        
-            // If both movies have high enough votes, or rating difference is big → rating decides
-            if (a.votes >= MIN_VOTES_TOP && b.votes >= MIN_VOTES_TOP) {
-                if (ratingDiff > 0.5) return b.rating - a.rating;
-                return b.votes - a.votes; // tie-breaker
-            }
-        
-            // If only one of them has high votes → push it higher
-            if (a.votes >= MIN_VOTES_TOP && b.votes < MIN_VOTES_TOP) return -1;
-            if (a.votes < MIN_VOTES_TOP && b.votes >= MIN_VOTES_TOP) return 1;
-        
-            // Both are low-vote movies → still sort by rating but they appear lower
-            if (ratingDiff > 0.5) return b.rating - a.rating;
-            return b.votes - a.votes;
-        });
+          if (a.votes < MIN_VOTES_TOP && b.votes >= MIN_VOTES_TOP) return 1;
+          if (a.votes >= MIN_VOTES_TOP && b.votes < MIN_VOTES_TOP) return -1;
+      
+          if (b.rating !== a.rating) return b.rating - a.rating;
+      
+          return b.votes - a.votes;
+      });
     }
   if (sort == "title") {
         const alphabeticOnlyRegex = /[^a-zA-Z0-9]/g; 
@@ -93,6 +84,7 @@ async function searchfunc(serch, BS, sort, jsonData){
 
 export default ben
 export { searchfunc }
+
 
 
 
