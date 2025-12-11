@@ -63,10 +63,25 @@ async function loadMovies() {
 }
 
 function updateActiveFiltersDisplay() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let selectedGenres = [];
+    let sort = "";
+    const checkedsort = urlParams.get('sort');
+
+            document.querySelectorAll('.sort-option input[type="radio"]').forEach(cb => {
+                 if (cb.checked) {
+                    sort = cb
+                }
+            });
+
+    document.querySelectorAll('.genre-checkbox input[type="checkbox"]').forEach(checkbox => {
+        if (checkbox.checked){
+        selectedGenres.push(checkbox.value);
+        }});
     const activeFilters = document.getElementById('activeFilters');
     if (!activeFilters) return;
     
-    if (genres.length === 0 && !query && !sortBy) {
+    if (selectedGenres.length === 0 && !query && !sort) {
         activeFilters.innerHTML = '';
         return;
     }
@@ -78,12 +93,12 @@ function updateActiveFiltersDisplay() {
                  <button class="remove-filter" data-type="search">×</button></span>`;
     }
 
-    if (sortby){
+    if (sort){
         html += `<span class="active-filter">Sort: ${sort.parentElement.querySelector('span').textContent} 
                  <button class="remove-filter" data-type="sort" data-value="${sort.value}">×</button></span>`;
     }
     
-    genres.forEach(genre => {
+    selectedGenres.forEach(genre => {
         html += `<span class="active-filter">${genre} 
                  <button class="remove-filter" data-type="genre" data-value="${genre}">×</button></span>`;
     });
@@ -95,13 +110,14 @@ function updateActiveFiltersDisplay() {
         button.addEventListener('click', function() {
             const type = this.getAttribute('data-type');
             const value = this.getAttribute('data-value');
+            console.log(type,value)
             
             if (type === 'search') {
-                query = '';
+                currentSearchTerm = '';
                 document.getElementById('searchInput').value = '';
          
             }else if (type === 'genre') {
-                genres = genres.filter(g => g !== value);
+                selectedGenres = selectedGenres.filter(g => g !== value);
                 const checkbox = document.querySelector(`.genre-checkbox input[value="${value}"]`);
                 if (checkbox) checkbox.checked = false;
             } else if (type === 'sort') {
@@ -109,7 +125,8 @@ function updateActiveFiltersDisplay() {
                 const checkedRadio = document.querySelector('.sort-option input[type="radio"]:checked');
                 if (checkedRadio) checkedRadio.checked = false;
                 const relevance = document.querySelector('.sort-option input[value="relevance"]');
-                if (relevance) relevance.checked = true;}
+                if (relevance) relevance.checked = true;
+}
             
             updateActiveFiltersDisplay();
         });
@@ -385,4 +402,3 @@ document.getElementById('searchInput').addEventListener('keydown', function(k) {
         performSearch();
     }
 });
-
