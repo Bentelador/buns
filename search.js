@@ -46,7 +46,7 @@ async function loadMovies() {
             genres.push(element)
         })
         document.getElementById('searchInput').value = searchQuery;
-        query = searchQuery
+        query = searchQuery || "";
         const currentResults = await searchfunc(searchQuery.toLowerCase(),genres,sortBy,allMovies);
         currentPage = 1;
         displayResults(currentResults);
@@ -54,7 +54,7 @@ async function loadMovies() {
         updateActiveFiltersDisplay()
     } else{
         document.getElementById('searchInput').value = searchQuery;
-        query = searchQuery
+        query = searchQuery || "";
         const OutsideSearch = await ben(searchQuery.toLowerCase(), sortBy, allMovies,);
         displayResults(OutsideSearch);
         updateResultsInfo(searchQuery,OutsideSearch);
