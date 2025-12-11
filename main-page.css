@@ -477,8 +477,6 @@ body {
     max-width: 200px;
     border-radius: 4px;
     overflow: hidden;
-    object-fit: cover;
-    object-position: center;
     flex-shrink: 0;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-origin: center bottom;
@@ -492,6 +490,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    object-fit: cover;
+    object-position: center;
     font-size: 3rem;
     position: relative;
 }
@@ -974,6 +974,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     border-left: 4px solid #e50914;
 }
+
 
 
 
