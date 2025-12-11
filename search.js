@@ -107,7 +107,7 @@ function updateActiveFiltersDisplay() {
     
     // Add event listeners to remove buttons
     activeFilters.querySelectorAll('.remove-filter').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
             const type = this.getAttribute('data-type');
             const value = this.getAttribute('data-value');
             console.log(type,value)
@@ -129,7 +129,7 @@ function updateActiveFiltersDisplay() {
 }
             
             updateActiveFiltersDisplay();
-            performSearch();
+            sortResults(event.target,type);
         });
     });
 }
