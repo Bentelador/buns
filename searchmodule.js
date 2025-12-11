@@ -48,7 +48,7 @@ async function sorta(sort,result,ss) {
           
               // Otherwise votes dominate (strongly)
               return b.votes - a.votes;
-          });
+          };
         });
     }
   if (sort == "title") {
@@ -84,6 +84,7 @@ async function searchfunc(serch, BS, sort, jsonData){
 
 export default ben
 export { searchfunc }
+
 
 
 
