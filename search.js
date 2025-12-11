@@ -393,6 +393,8 @@ loadbtn.addEventListener("click", function() {
 })
 
 document.getElementById('clearFiltersBtn').addEventListener('click', function() {
+    query = '';
+    document.getElementById('searchInput').value = '';
     genreList.forEach(cb => cb.checked = false);
     sortList.forEach(radio => {
     radio.checked = (radio.value === "relevance");
