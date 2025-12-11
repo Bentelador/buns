@@ -26,7 +26,7 @@ async function sorter(sort,result,ss){
    bb = result.sort((yearA,yearB) => {
           return yearB.votes - yearA.votes;
     });
-  bb - bb.slice(0-5000);
+  bb - bb.slice(0-20);
   return bb
 }
 
@@ -86,6 +86,7 @@ async function searchfunc(serch, BS, sort, jsonData){
 
 export default ben
 export { searchfunc }
+
 
 
 
