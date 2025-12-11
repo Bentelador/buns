@@ -215,7 +215,7 @@ function createMovieCard(movie) {
             <img src="${movie.image}" 
                  alt="${movie.title || 'Movie'}"
                  loading="lazy"
-                 onerror="this.src='🎬'>
+                 onerror="this.src='🎬'">
             <div class="play-overlay"></div>
         </div>
         <div class="movie-info">
