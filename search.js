@@ -389,6 +389,14 @@ searchbtn.addEventListener("click", function() {
 loadbtn.addEventListener("click", function() {
     loadMoreResults();
 })
+
+document.getElementById('clearFiltersBtn').addEventListener('click', function() {
+    genreList.forEach(cb => cb.checked = false);
+    sortList.forEach(radio => {
+    radio.checked = (radio.value === "relevance");
+});
+});
+
 const filterToggleBtn = document.getElementById('filterToggleBtn');
     if (filterToggleBtn) {
         filterToggleBtn.addEventListener('click', function() {
