@@ -144,7 +144,7 @@ async function performSort() {
 
 // Display results
 function displayResults(currentResults) {
-    const resultsGrid = document.getElementById('results-grid');
+    const resultsGrid = document.getElementById('resultGrid');
     const loadMoreBtn = document.getElementById('loadMore');
     if (currentResults.length === 0) {
         resultsGrid.innerHTML = `
