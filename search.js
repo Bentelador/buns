@@ -160,7 +160,6 @@ function displayResults(currentResults) {
             </div>
         `;
         loadMoreBtn.style.display = 'none';
-        clearMovieDetails();
         return;
     }
     
