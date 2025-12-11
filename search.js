@@ -221,23 +221,65 @@ function createMovieCard(movie) {
             <div class="movie-genres" title="${movie.genre}">${movie.genre}</div>
             <div class="movie-synopsis" title="${movie.synopsis}">${movie.synopsis}</div>
             <div class="movie-actions">
-                <button class="watchlist-btn ${isInWatchlist ? 'added' : ''}" 
-                        onclick="addToWatchlist('${movie.id}','${movie.title}')"
+               <button id="watchlist-btn${movie.id}"
+                        class="watchlist-btn ${isInWatchlist ? 'added' : ''}"
+                        data-movie-id="${movie.id}"
+                        data-movie-title="${movie.title}"
+                        data-in-watchlist="${isInWatchlist}"
                         title="${isInWatchlist ? 'In Watchlist' : 'Add to Watchlist'}">
                     ${isInWatchlist ? '✓ In Watchlist' : '+ Watchlist'}
                 </button>
-                <button class="info-btn" onclick="showMovieInfo('${movie.id}')" title="More Info">
+                <button id="info-btn" class="info-btn" onclick="showMovieInfo('${movie.id}')" title="More Info">
                     Info
                 </button>
-                <button class="play-btn" onclick="playMovie('${movie.id}')" title="Play Movie">
+                <button id="play-btn" class="play-btn" onclick="playMovie('${movie.id}')" title="Play Movie">
                     Play
                 </button>
             </div>
         </div>
     </div>
     `;
+
+    const btn = card.querySelector('.watchlist-btn')
+    btn.addEventListener('click', function() {
+            const movieId = this.dataset.movieId;
+            const movieTitle = this.dataset.movieTitle;
+            let isInWatchlist = this.dataset.inWatchlist === 'true';
+
+            if (isInWatchlist) {
+                removeFromWatchlist(movieId, movieTitle, this, isInWatchlist);
+                this.dataset.inWatchlist = 'false';
+                this.classList.remove('added');
+                this.textContent = '+ Watchlist';
+            } else {
+                addToWatchlist(movieId, movieTitle, this);
+                this.dataset.inWatchlist = 'true';
+                this.classList.add('added');
+                this.textContent = '✓ In Watchlist';
+            }
+        });
     
     return card;
+}
+
+function removeFromWatchlist(movieId, movieTitle,btn,isInWatchlist) {
+    btn.parentNode.innerHTML = `<button id="watchlist-btn${movie.id}"
+                        class="watchlist-btn ${isInWatchlist ? 'added' : ''}"
+                        data-movie-id="${movie.id}"
+                        data-movie-title="${movie.title}"
+                        data-in-watchlist="${isInWatchlist}"
+                        title="${isInWatchlist ? 'In Watchlist' : 'Add to Watchlist'}">
+                    ${isInWatchlist ? '✓ In Watchlist' : '+ Watchlist'}
+                </button>`;
+    
+    let userWatchlist = JSON.parse(localStorage.getItem('userWatchlist') || '[]');
+    const movieIndex = userWatchlist.findIndex(item => item.id === movieId);
+    
+    if (movieIndex !== -1) {
+        const movieTitle = userWatchlist[movieIndex].title;
+        userWatchlist.splice(movieIndex, 1);
+        localStorage.setItem('userWatchlist', JSON.stringify(userWatchlist));
+    }
 }
 
 // Sort results
@@ -310,8 +352,17 @@ function formatNumber(num) {
 }
 
 // Add to watchlist function
-function addToWatchlist(movieId, movieTitle) {
+function addToWatchlist(movieId, movieTitle,btn,isInWatchlist) {
     // Get existing watchlist
+    btn.parentNode.innerHTML = `<button id="watchlist-btn${movie.id}"
+                        class="watchlist-btn ${isInWatchlist ? 'added' : ''}"
+                        data-movie-id="${movie.id}"
+                        data-movie-title="${movie.title}"
+                        data-in-watchlist="${isInWatchlist}"
+                        title="${isInWatchlist ? 'In Watchlist' : 'Add to Watchlist'}">
+                    ${isInWatchlist ? '✓ In Watchlist' : '+ Watchlist'}
+                </button>`;
+    
     let watchlist = JSON.parse(localStorage.getItem('userWatchlist') || '[]');
     
     // Check if already in watchlist
