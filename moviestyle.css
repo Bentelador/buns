@@ -1058,8 +1058,7 @@ body {
 /* Info panel below player */
 .thumb-desc-container {
     display: flex;
-    height: 915px;
-    width: 180vh;
+    width: 120vh;
     padding: 30px 40px;
     background: linear-gradient(to top, #181818, #000);
     border-radius: 0 0 12px 12px;
@@ -1074,9 +1073,9 @@ body {
 
 /* Thumbnail container */
 .thumbnail-container {
-    height: 260px;
-    min-width: 180px;
-    width: 180px;
+    height: 520px;
+    min-width: 360px;
+    width: 360px;
     background: #222;
     border-radius: 10px;
     overflow: hidden;
@@ -1163,6 +1162,7 @@ body {
         width: 140vh;
     }
 }
+
 
 
 
