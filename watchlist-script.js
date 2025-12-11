@@ -47,7 +47,7 @@ function debugLocalStorage() {
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is logged in
     if (localStorage.getItem('isLoggedIn') !== 'true') {
-        window.location.href = 'login.html';
+        window.location.href = 'Log in.html';
     }
 
     // Debug first
@@ -262,6 +262,7 @@ function updateAllStats() {
         document.getElementById('inWatchlist').textContent = inWatchlist;
     }
 }
+
 
 
 
