@@ -1,6 +1,6 @@
 import ben, { searchfunc } from "./searchmodule.js"
-const genreList = document.querySelectorAll(".SortFilter2 input[type='checkbox']");
-const sortList = document.querySelectorAll(".SortFilter input[type='radio']");
+const genreList = document.querySelectorAll(".sort-option input[type='checkbox']");
+const sortList = document.querySelectorAll("genre-checkbox input[type='radio']");
 const searchbtn = document.getElementById("search-btn");
 const loadbtn = document.getElementById("load-more-btn");
 
@@ -45,13 +45,85 @@ async function loadMovies() {
         currentPage = 1;
         displayResults(currentResults);
         updateResultsInfo(query, currentResults);
+        updateActiveFiltersDisplay()
     } else{
         document.getElementById('searchInput').value = searchQuery;
         query = searchQuery
         const OutsideSearch = await ben(searchQuery, sortBy, allMovies,);
         displayResults(OutsideSearch);
         updateResultsInfo(searchQuery,OutsideSearch);
+        updateActiveFiltersDisplay()
     }
+}
+
+function updateActiveFiltersDisplay() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedGenres = [];
+    let sort = "";
+    const checkedsort = urlParams.get('sort');
+
+            document.querySelectorAll('.sort-option input[type="radio"]').forEach(cb => {
+                 if (cb.checked) {
+                    sort = cb
+                }
+            });
+
+    document.querySelectorAll('.genre-checkbox input[type="checkbox"]').forEach(checkbox => {
+        if (checkbox.checked){
+        selectedGenres.push(checkbox.value);
+        }});
+    const activeFilters = document.getElementById('activeFilters');
+    if (!activeFilters) return;
+    
+    if (selectedGenres.length === 0 && !currentSearchTerm && !sort) {
+        activeFilters.innerHTML = '';
+        return;
+    }
+    
+    let html = '<div class="active-filters-title">Active Filters:</div>';
+    
+    if (currentSearchTerm) {
+        html += `<span class="active-filter">Search: "${currentSearchTerm}" 
+                 <button class="remove-filter" data-type="search">×</button></span>`;
+    }
+
+    if (sort){
+        html += `<span class="active-filter">Sort: ${sort.parentElement.querySelector('span').textContent} 
+                 <button class="remove-filter" data-type="sort" data-value="${sort.value}">×</button></span>`;
+    }
+    
+    selectedGenres.forEach(genre => {
+        html += `<span class="active-filter">${genre} 
+                 <button class="remove-filter" data-type="genre" data-value="${genre}">×</button></span>`;
+    });
+    
+    activeFilters.innerHTML = html;
+    
+    // Add event listeners to remove buttons
+    activeFilters.querySelectorAll('.remove-filter').forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.getAttribute('data-type');
+            const value = this.getAttribute('data-value');
+            
+            if (type === 'search') {
+                currentSearchTerm = '';
+                document.getElementById('searchInput').value = '';
+         
+            }else if (type === 'genre') {
+                selectedGenres = selectedGenres.filter(g => g !== value);
+                const checkbox = document.querySelector(`.genre-checkbox input[value="${value}"]`);
+                if (checkbox) checkbox.checked = false;
+            } else if (type === 'sort') {
+                // Clear selected sort
+                const checkedRadio = document.querySelector('.sort-option input[type="radio"]:checked');
+                if (checkedRadio) checkedRadio.checked = false;
+                const relevance = document.querySelector('.sort-option input[value="relevance"]');
+                if (relevance) relevance.checked = true;
+}
+            
+            updateActiveFiltersDisplay();
+        });
+    });
 }
 
 
@@ -72,7 +144,7 @@ async function performSort() {
 
 // Display results
 function displayResults(currentResults) {
-    const resultsGrid = document.getElementById('resultsGrid');
+    const resultsGrid = document.getElementById('results-grid');
     const loadMoreBtn = document.getElementById('loadMore');
     if (currentResults.length === 0) {
         resultsGrid.innerHTML = `
@@ -107,11 +179,6 @@ function displayResults(currentResults) {
     } else {
         loadMoreBtn.style.display = 'none';
     }
-    
-    // Select first movie by default
-    if (resultsToShow.length > 0 && !selectedMovie) {
-        showMovieDetails(resultsToShow[0]);
-    }
 }
 
 // Create movie card element
@@ -121,82 +188,56 @@ function createMovieCard(movie) {
     card.dataset.id = movie.id;
     
     // Format genres from array to string
-    const genresText = movie.genre ? movie.genre.join(', ') : 'Unknown';
+    let isInWatchlist = false;
+    try {
+        const userWatchlist = JSON.parse(localStorage.getItem('userWatchlist') || '[]');
+        isInWatchlist = userWatchlist.some(item => item.id === movie.id);
+    } catch (e) {
+        console.error('Error checking watchlist:', e);
+    }
     
     card.innerHTML = `
-        <div class="movie-poster">
-            <img src="${movie.image}" alt="${movie.title}" onerror="this.src='🎬'; this.style.fontSize='4rem'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';">
+    <div class="movie-card" data-movie-id="${movie.id}">
+        <div class="movie-poster" onclick="playMovie('${movie.id}')">
+            <img src="${movie.image}" 
+                 alt="${movie.title || 'Movie'}"
+                 loading="lazy"
+                 onerror="this.src='🎬'>
+            <div class="play-overlay"></div>
         </div>
         <div class="movie-info">
-            <h3 class="movie-title">${movie.title}</h3>
+            <h3 class="movie-title" title="${movie.title || 'Unknown'}">${movie.title || 'Unknown'}</h3>
             <div class="movie-meta">
                 <span class="movie-year">${movie.year}</span>
-                <span class="movie-rating">★ ${movie.rating || 'N/A'}</span>
-                <span class="movie-votes">(${formatNumber(movie.votes || 0)} votes)</span>
+                <span class="movie-rating">${movie.rating}</span>
             </div>
-            <div class="movie-genres">${genresText}</div>
+            <div class="movie-genres" title="${movie.genre}">${movie.genre}</div>
+            <div class="movie-synopsis" title="${movie.synopsis}">${movie.synopsis}</div>
+            <div class="movie-actions">
+                <button class="watchlist-btn ${isInWatchlist ? 'added' : ''}" 
+                        onclick="addToWatchlist('${movie.id}'${movie.title})"
+                        title="${isInWatchlist ? 'In Watchlist' : 'Add to Watchlist'}">
+                    ${isInWatchlist ? '✓ In Watchlist' : '+ Watchlist'}
+                </button>
+                <button class="info-btn" onclick="showMovieInfo('${movie.id}')" title="More Info">
+                    Info
+                </button>
+                <button class="play-btn" onclick="playMovie('${movie.id}')" title="Play Movie">
+                    Play
+                </button>
+            </div>
         </div>
+    </div>
     `;
-    
-    card.addEventListener('click', () => showMovieDetails(movie));
     
     return card;
 }
 
-// Show movie details in left panel
-function showMovieDetails(movie) {
-    selectedMovie = movie;
-    const detailsPanel = document.getElementById('movieDetails');
-    
-    // Format runtime from seconds to hours/minutes
-    const runtimeText = movie.runtime ? formatRuntime(movie.runtime) : 'Duration unknown';
-    
-    // Format genres from array
-    const genresText = movie.genre ? movie.genre.join(' • ') : 'Unknown';
-    
-    detailsPanel.innerHTML = `
-        <div class="selected-movie">
-            <div class="selected-poster">
-                <img src="${movie.image}" alt="${movie.title}" onerror="this.src='🎬'; this.style.fontSize='6rem'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';">
-            </div>
-            <div class="selected-info">
-                <h2>${movie.title}</h2>
-                <div class="selected-meta">
-                    <span>${movie.year}</span>
-                    <span>★ ${movie.rating || 'N/A'}</span>
-                    <span>${runtimeText}</span>
-                    <span>${formatNumber(movie.votes || 0)} votes</span>
-                </div>
-                <div class="selected-genres">${genresText}</div>
-                <p class="selected-description">${movie.synopsis || 'No synopsis available.'}</p>
-                <div class="selected-actions">
-                    <button class="play-btn" onclick="window.location.href='Movie_Play.html?id=${movie.id}'">▶ Play</button>
-                    <button class="watchlist-btn">+ Watchlist</button>
-                </div>
-            </div>
-        </div>
-    `;
-    const watchlistBtn = document.querySelector(".watchlist-btn").addEventListener("click", () => {
-    addToWatchlist(movie.id, movie.title);
-    });
-    // Highlight selected card
-    document.querySelectorAll('.movie-card').forEach(card => {
-        card.classList.remove('selected');
-        if (card.dataset.id === movie.id) {
-            card.classList.add('selected');
-        }
-    });
+function showMovieInfo(movieId) {
+    window.open(`https://www.imdb.com/title/${movieId}`, '_blank');
 }
-
-// Clear movie details panel
-function clearMovieDetails() {
-    const detailsPanel = document.getElementById('movieDetails');
-    detailsPanel.innerHTML = `
-        <div class="details-placeholder">
-            <h3>Select a movie to view details</h3>
-            <p>Click on any movie poster to see its information here</p>
-        </div>
-    `;
+function playMovie(movieId) {
+    window.location.href = `Movie_Play.html?id=${movieId}`;
 }
 
 // Sort results
