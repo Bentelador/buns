@@ -1058,7 +1058,8 @@ body {
 /* Info panel below player */
 .thumb-desc-container {
     display: flex;
-    width: 120vh;
+    height: 915px;
+    width: 180vh;
     padding: 30px 40px;
     background: linear-gradient(to top, #181818, #000);
     border-radius: 0 0 12px 12px;
@@ -1162,6 +1163,7 @@ body {
         width: 140vh;
     }
 }
+
 
 
 
