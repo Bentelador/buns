@@ -1142,7 +1142,6 @@ body {
     background: linear-gradient(45deg, #fff, #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background: rgba(255, 255, 255, 0.05);
     padding: 8px 16px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1168,6 +1167,7 @@ body {
         width: 140vh;
     }
 }
+
 
 
 
