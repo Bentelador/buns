@@ -1060,7 +1060,8 @@ body {
     display: flex;
     width: 120vh;
     padding: 30px 40px;
-    background-color: rgba(0,0,0, 0.2);
+    background-color: rgba(0,0,0, 0
+                          );
     border-radius: 0 0 12px 12px;
     align-items: flex-start;
     justify-content: flex-start;
@@ -1162,6 +1163,7 @@ body {
         width: 140vh;
     }
 }
+
 
 
 
