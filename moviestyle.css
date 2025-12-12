@@ -1124,7 +1124,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     max-width: 95%;
 }
 
@@ -1166,6 +1166,7 @@ body {
         width: 140vh;
     }
 }
+
 
 
 
